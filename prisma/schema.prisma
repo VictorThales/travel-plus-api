@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  name    String
+  email   String   @unique
+  age     Int
+  country String
+  city    String
+  password String
+  // Relationships
+  trips   Trip[]
+}
+
+model Trip {
+  id            Int       @id @default(autoincrement())
+  budget        Float
+  name         String
+  description  String
+  // Relationships
+  user          User?     @relation(fields: [userId], references: [id])
+  userId        Int?
+  destinations  Destination[]
+  companions    Companion[]
+  places        Place[]
+}
+
+model Destination {
+  id            Int       @id @default(autoincrement())
+  date          DateTime
+  location      String
+  estimatedCost Float
+  images        String[]
+  // Relationships
+  trip          Trip      @relation(fields: [tripId], references: [id])
+  tripId        Int
+}
+
+model Companion {
+  id           Int      @id @default(autoincrement())
+  name         String
+  description  String
+  images       String[]
+  // Relationships
+  trip         Trip     @relation(fields: [tripId], references: [id])
+  tripId       Int
+}
+
+model Place {
+  id           Int      @id @default(autoincrement())
+  name         String
+  date         DateTime
+  type         String   // Enum: "restaurant", "tourist spot"
+  images       String[]
+  rating       Int      // 1 to 5
+  // Relationships
+  trip         Trip     @relation(fields: [tripId], references: [id])
+  tripId       Int
+}
