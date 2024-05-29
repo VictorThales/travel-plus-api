@@ -23,6 +23,11 @@ export class CompanionController {
     return this.companionService.getCompanionById(+id);
   }
 
+  @Get('/trip/:id')
+  async getCompanionByTripId(@Param('id') id: string): Promise<Companion[]> {
+    return this.companionService.getCompanionByTripId(+id);
+  }
+
   @Put(':id')
   async updateCompanion(@Param('id') id: string, @Body() data: Prisma.CompanionUpdateInput): Promise<Companion> {
     return this.companionService.updateCompanion({ where: { id: +id }, data });

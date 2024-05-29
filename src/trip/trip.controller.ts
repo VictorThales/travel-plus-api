@@ -21,6 +21,12 @@ export class TripController {
     return this.tripService.getTripById(+id);
   }
 
+  @Get('user/:id')
+  async getTripByUserId(@Param('id') id: string): Promise<Trip[] | null> {
+    console.log({id})
+    return this.tripService.getTripByUserId(+id);
+  }
+
   @Put(':id')
   async updateTrip(@Param('id') id: string, @Body() data: { name?: string; description?: string; budget?: number;}): Promise<Trip> {
     return this.tripService.updateTrip({ where: { id: +id }, data });

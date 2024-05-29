@@ -20,6 +20,15 @@ export class PlaceService {
     return this.prisma.place.findUnique({ where: { id } });
   }
 
+  async getPlaceByTripId(tripId: number): Promise<Place[]> {
+    return this.prisma.place.findMany({ 
+      where: { 
+        tripId,
+      } 
+    });
+  }
+
+
   async updatePlace(params: {
     where: Prisma.PlaceWhereUniqueInput;
     data: Prisma.PlaceUpdateInput;

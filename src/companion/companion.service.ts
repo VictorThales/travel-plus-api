@@ -20,6 +20,14 @@ export class CompanionService {
     return this.prisma.companion.findUnique({ where: { id } });
   }
 
+  async getCompanionByTripId(tripId: number): Promise<Companion[]> {
+    return this.prisma.companion.findMany({ 
+      where: { 
+        tripId,
+      } 
+    });
+  }
+
   async updateCompanion(params: {
     where: Prisma.CompanionWhereUniqueInput;
     data: Prisma.CompanionUpdateInput;

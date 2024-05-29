@@ -20,6 +20,14 @@ export class DestinationService {
     return this.prisma.destination.findUnique({ where: { id } });
   }
 
+  async getDestinationByTripId(tripId: number): Promise<Destination[]> {
+    return this.prisma.destination.findMany({ 
+      where: { 
+        tripId,
+      } 
+    });
+  }
+
   async updateDestination(params: {
     where: Prisma.DestinationWhereUniqueInput;
     data: Prisma.DestinationUpdateInput;

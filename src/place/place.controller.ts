@@ -23,6 +23,11 @@ export class PlaceController {
     return this.placeService.getPlaceById(+id);
   }
 
+  @Get('/trip/:id')
+  async getPlaceByTripId(@Param('id') id: string): Promise<Place[]> {
+    return this.placeService.getPlaceByTripId(+id);
+  }
+
   @Put(':id')
   async updatePlace(@Param('id') id: string, @Body() data: Prisma.PlaceUpdateInput): Promise<Place> {
     return this.placeService.updatePlace({ where: { id: +id }, data });

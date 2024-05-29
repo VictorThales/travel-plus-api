@@ -23,6 +23,11 @@ export class DestinationController {
     return this.destinationService.getDestinationById(+id);
   }
 
+  @Get('/trip/:id')
+  async getDestinationByTripId(@Param('id') id: string): Promise<Destination[]> {
+    return this.destinationService.getDestinationByTripId(+id);
+  }
+
   @Put(':id')
   async updateDestination(@Param('id') id: string, @Body() data: Prisma.DestinationUpdateInput): Promise<Destination> {
     return this.destinationService.updateDestination({ where: { id: +id }, data });

@@ -9,6 +9,7 @@ export class TripService {
   constructor(private prisma: PrismaService) {}
 
   async createTrip(data: Prisma.TripCreateInput): Promise<Trip> {
+    console.log({data})
     return this.prisma.trip.create({ data });
   }
 
@@ -18,6 +19,10 @@ export class TripService {
 
   async getTripById(id: number): Promise<Trip | null> {
     return this.prisma.trip.findUnique({ where: { id } });
+  }
+
+  async getTripByUserId(id: number): Promise<Trip[] | null> {
+    return this.prisma.trip.findMany({ where: { userId: id } });
   }
 
   async updateTrip(params: {
