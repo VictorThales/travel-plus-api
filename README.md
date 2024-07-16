@@ -1,4 +1,4 @@
-# Travel Plus
+# Travel Plus API
 
 Trabalho de conclusão de curso de pós-graduação em desenvolvimento fullstack na PUCRS
 
@@ -44,9 +44,15 @@ $ yarn run start:prod
 
 ```
 
+## Documento da API
+```bash
+http://localhost:3000/api
+```
+
 ## Rodando o teste
 
 ```bash
 $ yarn run test 
 ```
 
+<img width="854" alt="Captura de Tela 2024-07-16 às 19 17 14" src="https://github.com/user-attachments/assets/af797b4d-067f-4e1e-bad5-87f328cdeaf6">
