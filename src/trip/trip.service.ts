@@ -8,8 +8,30 @@ import { Trip, Prisma } from '@prisma/client';
 export class TripService {
   constructor(private prisma: PrismaService) {}
 
+  async getTotalSpentByUser(userId: number): Promise<number> {
+    console.log({ userId });
+    const trips = await this.prisma.trip.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        places: true,
+      },
+    });
+    let totalSpent = 0;
+    console.log({ trips });
+    trips.forEach((trip) => {
+      trip.places.forEach((place) => {
+        console.log({ place });
+        totalSpent += place.spent;
+      });
+    });
+    console.log({ totalSpent });
+    return totalSpent;
+  }
+
   async createTrip(data: Prisma.TripCreateInput): Promise<Trip> {
-    console.log({data})
+    console.log({ data });
     return this.prisma.trip.create({ data });
   }
 

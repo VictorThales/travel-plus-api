@@ -23,7 +23,7 @@ model User {
   password String
   // Relationships
   trips    Trip[]
-  image    Image?  @relation(fields: [imageId], references: [id])
+  image    Image?  @relation(fields: [imageId], references: [id], onDelete: SetNull)
   imageId  Int?
 }
 
@@ -33,7 +33,7 @@ model Trip {
   name         String
   description  String
   // Relationships
-  user         User?         @relation(fields: [userId], references: [id])
+  user         User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId       Int?
   destinations Destination[]
   companions   Companion[]
@@ -47,10 +47,10 @@ model Destination {
   location      String
   estimatedCost Float
   // Relationships
-  trip          Trip     @relation(fields: [tripId], references: [id])
+  trip          Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
   tripId        Int
-  image         Image    @relation(fields: [imageId], references: [id])
-  imageId       Int
+  image         Image?   @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  imageId       Int?
 }
 
 model Companion {
@@ -58,10 +58,10 @@ model Companion {
   name        String
   description String
   // Relationships
-  trip        Trip   @relation(fields: [tripId], references: [id])
+  trip        Trip   @relation(fields: [tripId], references: [id], onDelete: Cascade)
   tripId      Int
-  image       Image  @relation(fields: [imageId], references: [id])
-  imageId     Int
+  image       Image? @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  imageId     Int?
 }
 
 model Place {
@@ -70,12 +70,12 @@ model Place {
   date    DateTime
   type    String // Enum: "restaurant", "tourist spot"
   rating  Int // 1 to 5
-  spent   Int
+  spent   Float
   // Relationships
-  trip    Trip     @relation(fields: [tripId], references: [id])
+  trip    Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
   tripId  Int
-  image   Image    @relation(fields: [imageId], references: [id])
-  imageId Int
+  image   Image?   @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  imageId Int?
 }
 
 model Image {
