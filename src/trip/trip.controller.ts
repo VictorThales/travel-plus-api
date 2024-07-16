@@ -40,13 +40,11 @@ export class TripController {
 
   @Get('user/:id')
   async getTripByUserId(@Param('id') id: string): Promise<Trip[] | null> {
-    console.log({ id });
     return this.tripService.getTripByUserId(+id);
   }
 
   @Get('total-spent/:id')
   async getTotalSpent(@Param('id') id: string): Promise<number> {
-    console.log({ userspent: id });
     return this.tripService.getTotalSpentByUser(+id);
   }
 
